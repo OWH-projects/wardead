@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Remembering the Fallen - Omaha.com/wardead{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="/media/wardeadstyles.css" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="http://dataomaha.com/media/scripts/tooltip.js"></script>
+<script type="text/javascript" src="http://dataomaha.com/media/scripts/jquery.jcarousel.js"></script>
+
+<link rel="stylesheet" href="http://dataomaha.com/media/scripts/skins/ie7/skin.css" type="text/css">
+
+<script type=text/javascript>
+$(document).ready( function() {
+	$(".face[title]").tooltip();
+	});
+</script>
+
+{% load humanize %}
+
+{% endblock %}
+{% block app %}
+	
+<body>
+
+
+	<div class="header">
+
+
+		<div style="width: 960px; margin: 0 auto;">
+
+			<h1><a href="/wardead/">Remembering the fallen</a></h1>
+
+			<h2>A tribute to troops killed in Iraq and Afghanistan</h2>
+
+		
+
+			<div class="header-comments">
+
+				{% block nav %}{% endblock %}
+
+			
+			</div>
+
+
+		</div>
+			
+			
+		<div style="clear:both;"></div>
+
+
+		
+	</div><!-- end header -->
+
+
+{% block content %} 
+{% endblock %}
+
+
+{% endblock %}
+{% block footer %}
+
+<script type="text/javascript">
+$("div.intro-button").click(function() {
+	$(".intro").slideToggle("slow");
+	$("div.intro-button").slidetoggle("slow");
+});
+
+$(".intro-instructions").click(function() {
+	$(".intro").slideToggle("slow");
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        // Configuration goes here
+	auto: 10,
+	animation: 2000,
+	wrap: "both",
+	scroll: 1,
+	visible: 1
+    });
+});
+</script>
+
+
+
+
+{% endblock %}
+
+

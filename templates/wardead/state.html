@@ -1,0 +1,171 @@
+{% extends 'wardead/base.html' %}
+{% load humanize %}
+
+{% block title %}Remembering the Fallen - Omaha.com/wardead{% endblock %}
+{% block nav %}{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="intro">
+
+<div class="intro-wrap">
+
+	<div class="intro-words">
+		<h2>Welcome.</h2>
+		<p>The Omaha World-Herald is honoring the troops killed in the Iraq and Afghanistan wars with this special feature, Remember the Fallen. Our searchable database includes biographical information, photos and archived stories about each of the {{ totalcount.pk__count }} Midlanders who gave their lives defending the nation. Readers are also encouraged to commemorate the fallen by leaving memorial messages of support and remembrance.</p>
+                        <form action="/wardead/search" method="GET">
+                        <input type="text" class="search-box textarea" name="q" value="{{ query|escape }}" width="150">
+                        <input type="submit" class="textarea"  value="Search">
+                        </form>
+
+	</div>
+
+	<div class="intro-instructions">
+		<p style="font-weight: bold; font-size: 14px; display: inline;">NAVIGATING THIS SITE</p><div style="float: right; background: #000; color: #eee; cursor: pointer; font-size: 10px; margin: 0; padding: 0px 5px 0px 5px; border: 1px solid #777;">Close [x]</div>
+
+		<ul>
+			<li style="margin-left: -50px; border-left: 1px dotted #666; padding-left: 15px; background: url(http://dataomaha.com/media/wardeadmugs/intro/filter.png) bottom center no-repeat;"><p><b>SORT</b><p>Click on  links above the photos to filter the page by gender, state, military branch or war.</li>
+			<li style="background: url(http://dataomaha.com/media/wardeadmugs/intro/hover.png) bottom center no-repeat;"><p><b>MEET</b><p>Hover over a picture to see a person's name and date of death. Click to see details about the person.</li>
+			<li style="margin-right: 0; border-right: 0; background: url(http://dataomaha.com/media/wardeadmugs/intro/bio.png) bottom center no-repeat;"><p><b>CONTRIBUTE</b><p>On each page, you can leave a tribute and read the World-Herald story about that person.</li>
+		</ul>
+
+		<div style="clear:both;"></div>
+
+	</div>
+
+		
+</div>
+
+</div>
+
+<div style="clear:both; margin: 0; padding: 0;"></div>
+
+
+
+
+
+<div class="main">
+
+<div class="tribute intro-button">About this project &raquo;</div>
+
+
+<div class="tribute"><a href="/wardead/contribute">Leave a tribute &raquo;</a></div>
+
+
+<div class="filters">
+				
+				<ul id="selectable">				
+				<li style="color: #ccc; font-style: italic;">Filters &rarr;</li>
+				<li class="male button">Male</li>
+				<li class="female button">Female</li>
+				
+				<li class="air-force button">Air Force</li>
+				<li class="army button">Army</li>
+				<li class="marine-corps button">Marines</li>
+				<li class="navy button">Navy</li>
+				
+				<li class="Afghanistan button">Afghanistan</li>
+				<li class="Iraq button">Iraq</li>
+              
+				<li class="reset" style="display:none; background: #444;">Reset</li>
+				</ul>
+				
+        </div>
+
+<div style="clear:both;"></div>
+
+<h1 class="state-topper">Troops from {{ state|title }} killed in Iraq and Afghanistan</h1>
+
+{% for soldier in soldiers %}
+<div class="face {{ soldier.service|slugify }} {{ soldier.gender }} {{ soldier.war }} {{ soldier.homestate }}" title="<h1>{{ soldier.rest }} <br />{{ soldier.last }}</h1><h2>{{ soldier.date|naturalday }}</h2><p><a href=/wardead/soldier/{{ soldier.nameslug }}>Click for details</a></p>"><a href="/wardead/soldier/{{ soldier.nameslug }}">{% if soldier.mugshot %}<img src="/media/minimugs/{{ soldier.mugshot }}">{% else %}<img src="/media/wardeadmugs/{{ soldier.service|title }}.jpg">{% endif %}</a></div>
+{% endfor %}
+
+<div class="count"><h1>{{ totalcount }}</h1><h2>DEAD</h2></div>
+
+
+<div style="clear:both;"></div>
+
+
+</div><!-- end faces -->
+
+
+<script type="text/javascript">
+	$('li.male').click( function() {
+    $('div.F').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});
+
+	$('li.female').click( function() {
+    $('div.M').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});
+	
+	$('li.air-force').click( function() {
+    $('div.army').hide();
+	$('div.navy').hide();
+	$('div.marine-corps').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});
+
+	$('li.army').click( function() {
+    $('div.air-force').hide();
+	$('div.navy').hide();
+	$('div.marine-corps').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});	
+
+	$('li.navy').click( function() {
+    $('div.air-force').hide();
+	$('div.army').hide();
+	$('div.marine-corps').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});	
+	
+	$('li.marine-corps').click( function() {
+    $('div.air-force').hide();
+	$('div.navy').hide();
+	$('div.army').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});		
+
+	$('li.Iraq').click( function() {
+    $('div.Afghanistan').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});		
+	
+	$('li.Afghanistan').click( function() {
+    $('div.Iraq').hide();
+	$('div.count').hide();
+	$('li.button').hide();
+	$('li.reset').show();
+	});		
+	
+	$('li.reset').click( function () {
+	$('div.face').show();
+	$('div.count').show();
+	$('li.button').show();
+	$('li.reset').hide();
+	});
+	
+</script>
+
+
+{% endblock %}
+

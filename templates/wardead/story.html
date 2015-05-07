@@ -1,0 +1,34 @@
+{% extends 'wardead/base.html' %}
+{% load humanize %}
+{% block title %}{{ soldier.rank }} {{ soldier.rest }} {{ soldier.last }} - Remembering the Fallen - Omaha.com/wardead{% endblock %}
+{% block nav %}
+    <div class="nav">
+
+<!--                {% if soldier.pk != 1 %}<a href="/wardead/soldier/{{ previous.name|slugify }}"><img src="/media/wardeadmugs/prev.png"></a>{% endif %}-->
+                <a href="/wardead/"><img src="/media/wardeadmugs/grid.png"></a>
+<!--                {% if soldier.pk != 112 %}<a href="/wardead/soldier/{{ next.name|slugify }}"><img src="/media/wardeadmugs/next.png"></a>{% endif %}-->
+
+        </div>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="main">
+
+<div class="main-image"><img src="/media/{{ soldier.mugshot }}"></div>
+
+
+<div class="info">
+    <h3><a href="/wardead/soldier/{{ soldier.name|slugify }}">&laquo; Back to profile</a></h3>        
+	<h1>{{ soldier.rest }} {{ soldier.last }}</h1>
+	<h2>Killed on {{ soldier.date|naturalday }}</h2>
+    <span class="story">{{ soldier.story|linebreaks }}</span>
+    <h3><a href="/wardead/soldier/{{ soldier.name|slugify }}">&laquo; Back to profile</a></h3>        
+
+</div>
+
+
+{% endblock %}
+
+

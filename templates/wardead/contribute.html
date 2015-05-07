@@ -1,0 +1,77 @@
+{% extends 'wardead/base.html' %}
+{% load humanize %}
+{% block title %}Leave a tribute to our Fallen {% endblock %}
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+{% load comments %}
+
+
+<div class="main">
+    
+	<div style="margin-bottom: 30px; border-bottom: 5px solid #555; padding-bottom: 30px;">
+	
+        <h2 style="font-family: Georgia; sans-serif; line-height: 130%;"><span style="font-size: 290%; float: left; margin: 16px 5px 0 0;">T</span>hey came from the region's biggest city and from no-stoplight rural towns. They served their nations honorably in war zones halfway around the world. In fulfilling their duty, they lost their lives. We salute the men and women with Midlands ties who made the ultimate sacrifice for their country. We invite you to join us.</h2>
+	</div>
+
+
+
+        <div class="contribute-right">
+
+		<div id="comment_form" class="contribute-form">
+
+			<h3>LEAVE YOUR OWN TRIBUTE</h3>
+   
+			<p>Leave a tribute to the soldiers</p> 
+
+		        {% get_comment_form for soldier as form %}
+
+			<form action="{% comment_form_target %}" method="POST">
+			<input type="hidden" name="next" value="{% comment_form_target %}" />
+				{% for field in form %}
+				{% if field.is_hidden %}
+				{{ field }}
+				{% endif %}
+				{% ifequal field.name "name" %} <h5>Your name</h5> {{ field }}{% endifequal %}
+				{% ifequal field.name "email" %} <h5>E-mail</h5> {{ field }}{% endifequal %}
+				{% ifequal field.name "comment" %} <h5>Your message</h5>{{ field }}{% endifequal %}
+				{% endfor %}
+			<p class="submit">
+			<input type="submit" value="Post" class="submit-post" name="post">
+			</p>
+			</form>
+
+		</div>
+	
+	</div>	
+
+	<div class="contribute-left">
+
+
+	<div class="comments">
+	<!--comments stuff-->
+		{% for comment in commentlist %}
+		<p class="contribute-quote"><a href="/wardead/soldier/{{ comment.object_pk }}">{{ comment.comment }}</a></p>
+		<p class="contribute-author">Posted by {{ comment.user_name }} on {{ comment.submit_date }}</p>
+		{% endfor %}
+
+        </div>
+
+	</div><!-- end comments -->
+
+
+<script>
+$(document).ready(function() {
+	$(".expand").click (function(){
+    	$(".form").show();
+	});
+});
+</script>
+
+
+{% endblock %}
+
+
+
+

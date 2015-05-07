@@ -1,0 +1,94 @@
+{% extends 'wardead/base.html' %}
+{% load humanize %}
+
+{% block title %}A tribute to troops killed in Iraq and Afghanistan - Remembering the Fallen - Omaha.com/wardead{% endblock %}
+{% block nav %}{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="intro">
+
+<div class="intro-wrap">
+
+	<div class="intro-words">
+		<h2>Welcome.</h2>
+		<p>The Omaha World-Herald is honoring the troops killed in the Iraq and Afghanistan wars with this special feature, Remember the Fallen. Our searchable database includes biographical information, photos and archived stories about each of the Midlanders who gave their lives defending the nation.</p>
+                        <form action="/wardead/search" method="GET">
+                        <input type="text" class="search-box textarea" name="q" value="{{ query|escape }}" width="150">
+                        <input type="submit" class="textarea"  value="Search">
+                        </form>
+
+	</div>
+
+	<div class="intro-instructions">
+		<p style="font-weight: bold; font-size: 14px; display: inline;">NAVIGATING THIS SITE</p><div style="float: right; background: #000; color: #eee; cursor: pointer; font-size: 10px; margin: 0; padding: 0px 5px 0px 5px; border: 1px solid #777;">Close [x]</div>
+
+		<ul>
+			<li style="margin-left: -50px; border-left: 1px dotted #666; padding-left: 15px; background: url(http://dataomaha.com/media/wardeadmugs/intro/filter.png) bottom center no-repeat;"><p><b>SORT</b><p>Click on  links above the photos to filter the page by gender, state, military branch or war.</li>
+			<li style="background: url(http://dataomaha.com/media/wardeadmugs/intro/hover.png) bottom center no-repeat;"><p><b>MEET</b><p>Hover over a picture to see a person's name and date of death. Click to see details about the person.</li>
+			<li style="margin-right: 0; border-right: 0; background: url(http://dataomaha.com/media/wardeadmugs/intro/bio.png) bottom center no-repeat;"><p><b>EXPERIENCE</b><p>On each page, you can read the World-Herald story about that person.</li>
+		</ul>
+
+		<div style="clear:both;"></div>
+
+	</div>
+
+		
+</div>
+
+</div>
+
+<div style="clear:both; margin: 0; padding: 0;"></div>
+
+
+
+
+
+<div class="main">
+
+	<div class="tribute intro-button">About this project &raquo;</div>
+	
+	<li class="tribute"><a href="http://rememberingourfallen.org">Traveling exhibit &raquo;</a></li>
+
+	<div style="clear:both;"></div>
+
+	<p class="main-intro">The Omaha World-Herald is honoring the troops killed in the Iraq and Afghanistan wars with this special feature, Remember the Fallen. Our searchable database includes biographical information, photos and archived stories about each of the Midlanders who gave their lives defending the nation. Readers are also encouraged to commemorate the fallen by leaving memorial messages of support and remembrance.</p>
+
+
+	<h1 class="state-topper">Recently deceased</h1>
+	{% for soldier in soldiers %}
+		<div class="face {{ soldier.service|slugify }} {{ soldier.gender }} {{ soldier.war }} {{ soldier.homestate }}" title="<h1>{{ soldier.rest }} <br />{{ soldier.last }}</h1><h2>{{ soldier.date|naturalday }}</h2><p><a href=/wardead/soldier/{{ soldier.nameslug }}>Click for details</a></p>"><a href="/wardead/soldier/{{ soldier.nameslug }}">{% if soldier.mugshot %}<img src="/media/minimugs/{{ soldier.mugshot }}">{% else %}<img src="/media/wardeadmugs/{{ soldier.service|title }}.jpg">{% endif %}</a></div>
+	{% endfor %}
+
+	<div class="count"><h1>{{ totalcount.pk__count }}</h1><h2>TOTAL KILLED</h2></div>
+
+
+	<div style="clear:both;"></div>
+
+
+	<h1 class="state-topper">Browse by state</h1>
+	<ul class="state-name">
+		<li class="state-name"><a href="/wardead/state/nebraska">Nebraska</a></li>
+		<li class="state-name"><a href="/wardead/state/Iowa">Iowa</a></li>
+<!--		<li class="state-name"><a href="/wardead/state/Missouri">Missouri</a></li>-->
+	</ul>
+
+	<div style="clear:both;"></div>
+
+
+	<h1 class="state-topper">Search by name</h1>
+                        <form action="/wardead/search" method="GET">
+                        <input type="text" class="search-box textarea" name="q" value="{{ query|escape }}" width="150">
+                        <input type="submit" class="textarea"  value="Search">
+                        </form>
+
+	<div style="clear:both;"></div>
+
+	</div><!-- end faces -->
+
+
+{% endblock %}
+

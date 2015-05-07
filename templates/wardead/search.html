@@ -1,0 +1,36 @@
+{% extends 'wardead/base.html' %}
+<title> results for {{ query }}</title>
+{% block title %}Search results for {{ query|escape }} - Remembering the Fallen - Omaha.com/wardead{% endblock %}
+
+{% load humanize %}
+
+{% block content %}
+
+
+<div class="container">
+<div class="main">
+
+  <h1>Search results for <span style="color: #ccc;"> {{ query|escape }}</span></h1>
+
+  {% if query %}
+    {% if results %}
+      <table id="sortable">
+        <tbody>
+      {% for player in results %}
+       <tr>
+                <td><a href="/wardead/soldier/{{ player.name|slugify }}">{{ player.name|escape }}</a></td>
+        </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No records found</p>
+    {% endif %}
+  {% endif %}
+
+
+</div><!-- end main -->
+</div><!-- end container -->
+
+{% endblock %}
+
